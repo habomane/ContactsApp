@@ -37,15 +37,15 @@ namespace ContactsAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HomePhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("HomePhoneNumber")
+                        .HasColumnType("float");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MobilePhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("MobilePhoneNumber")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

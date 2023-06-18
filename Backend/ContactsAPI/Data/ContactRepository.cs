@@ -8,6 +8,11 @@ public class ContactRepository : IContactRepository
 {
     private ContactDbContext contactDbContext;
 
+    public ContactRepository(ContactDbContext _contactDbContext)
+    {
+        contactDbContext = _contactDbContext;
+    }
+
     public async Task<IEnumerable<Contacts>> GetContacts()
     {
         return await contactDbContext.Contacts.ToListAsync();
@@ -58,6 +63,7 @@ public class ContactRepository : IContactRepository
                 item.Id = pos;
                 pos++;
             }
+            await contactDbContext.SaveChangesAsync();
         }
 
     }

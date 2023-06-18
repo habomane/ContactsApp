@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContactsAPI.Migrations
 {
     [DbContext(typeof(ContactDbContext))]
-    [Migration("20230617200624_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230618150505_PhoneBook")]
+    partial class PhoneBook
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,15 +40,15 @@ namespace ContactsAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("HomePhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("HomePhoneNumber")
+                        .HasColumnType("float");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MobilePhoneNumber")
-                        .HasColumnType("int");
+                    b.Property<double>("MobilePhoneNumber")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

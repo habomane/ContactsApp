@@ -3,10 +3,10 @@ using ContactsAPI.Dto;
 using ContactsAPI.Models;
 namespace ContactsAPI.Mapping;
 
-public class Mapper
+public static class Mapper
 {
 
-    public Contacts ConvertRequestToDomain(ContactRequestDto request)
+    public static Contacts ConvertRequestToDomain(ContactRequestDto request)
     {
         var response = new Contacts()
         {
@@ -20,7 +20,7 @@ public class Mapper
         return response;
     }
 
-    public ContactResponseDto ConvertDomainToResponse(Contacts request)
+    public static ContactResponseDto ConvertDomainToResponse(Contacts request)
     {
         var response = new ContactResponseDto()
         {

@@ -10,10 +10,10 @@ public class ContactResponseDto
     public string LastName { get; set; }
 
     [Required]
-    public int MobilePhoneNumber { get; set; }
+    public double MobilePhoneNumber { get; set; }
 
 
-    public int HomePhoneNumber { get; set; }
+    public double HomePhoneNumber { get; set; }
     public string Email { get; set; }
 }
 
