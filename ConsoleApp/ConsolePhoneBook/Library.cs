@@ -102,7 +102,7 @@ public class PhoneBook
         }
     }
 
-    public async Task UpdateTask(int id, string objectChanging, string newResult)
+    public async Task UpdateContact(int id, string objectChanging, string newResult)
     {
         try
         {
@@ -126,15 +126,15 @@ public class PhoneBook
             }
             if (objectChanging.ToLower() == "email" && IsValidEmail(objectChanging))
             {
-                result.Email = objectChanging;
+                result.Email = newResult;
             }
             if (objectChanging.ToLower() == "first name")
             {
-                result.FirstName = objectChanging;
+                result.FirstName = newResult;
             }
             if (objectChanging.ToLower() == "last name")
             {
-                result.LastName = objectChanging;
+                result.LastName = newResult;
             }
 
             var requestDto = new ContactRequestDto()
@@ -189,16 +189,16 @@ public class PhoneBook
             }
             if (searchCategory.ToLower() == "email")
             {
-                var result = Directory.Where(p => p.Email == searchItem);
+                var result = Directory.Where(p => p.Email.ToLower() == searchItem.ToLower());
                 return result;
             }
             if (searchCategory.ToLower() == "first name")
             {
-                return Directory.Where(p => p.FirstName == searchItem);
+                return Directory.Where(p => p.FirstName.ToLower() == searchItem.ToLower());
             }
             if (searchCategory.ToLower() == "last name")
             {
-                return Directory.Where(p => p.LastName == searchItem);
+                return Directory.Where(p => p.LastName.ToLower() == searchItem.ToLower());
             }
 
             return null;
