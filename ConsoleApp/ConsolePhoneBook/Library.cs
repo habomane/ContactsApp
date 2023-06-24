@@ -165,11 +165,50 @@ public class PhoneBook
         return Regex.IsMatch(email, pattern);
     }
 
-    public async Task SearchDirectory(string search)
+    public IEnumerable<ContactsDto> SearchDirectory(string searchItem, string searchCategory)
     {
+        try
+        {
+            if (searchCategory.ToLower() == "mobile phone number")
+            {
+                long searchNumber;
+                if(Int64.TryParse(searchItem, out searchNumber))
+                {
+                    var result = Directory.Where(p => p.MobilePhoneNumber == searchNumber);
+                    return result;
+                }
+            }
+            if (searchCategory.ToLower() == "home phone number")
+            {
+                long searchNumber;
+                if (Int64.TryParse(searchItem, out searchNumber))
+                {
+                    var result = Directory.Where(p => p.HomePhoneNumber == searchNumber);
+                    return result;
+                }
+            }
+            if (searchCategory.ToLower() == "email")
+            {
+                var result = Directory.Where(p => p.Email == searchItem);
+                return result;
+            }
+            if (searchCategory.ToLower() == "first name")
+            {
+                return Directory.Where(p => p.FirstName == searchItem);
+            }
+            if (searchCategory.ToLower() == "last name")
+            {
+                return Directory.Where(p => p.LastName == searchItem);
+            }
+
+            return null;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("Error: " + e.Message);
+            return null;
+        }
     }
 }
 
 
-// To do:
-// !. Allow users to search
