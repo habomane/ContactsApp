@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ConsolePhoneBook.Dto;
 
@@ -100,5 +101,75 @@ public class PhoneBook
             Console.WriteLine("Error: " + e.Message);
         }
     }
+
+    public async Task UpdateTask(int id, string objectChanging, string newResult)
+    {
+        try
+        {
+            var result = Directory.FirstOrDefault(p => p.Id == id);
+
+           if(objectChanging.ToLower() == "mobile phone number")
+            {
+                long newPhoneNumber;
+                if(Int64.TryParse(newResult, out newPhoneNumber))
+                {
+                    result.MobilePhoneNumber = newPhoneNumber;
+                }
+            }
+            if (objectChanging.ToLower() == "home phone number")
+            {
+                long newPhoneNumber;
+                if (Int64.TryParse(newResult, out newPhoneNumber))
+                {
+                    result.HomePhoneNumber = newPhoneNumber;
+                }
+            }
+            if (objectChanging.ToLower() == "email" && IsValidEmail(objectChanging))
+            {
+                result.Email = objectChanging;
+            }
+            if (objectChanging.ToLower() == "first name")
+            {
+                result.FirstName = objectChanging;
+            }
+            if (objectChanging.ToLower() == "last name")
+            {
+                result.LastName = objectChanging;
+            }
+
+            var requestDto = new ContactRequestDto()
+            {
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                MobilePhoneNumber = result.MobilePhoneNumber,
+                HomePhoneNumber = result.HomePhoneNumber,
+                Email = result.Email
+            };
+
+            var response = await httpClient.PutAsJsonAsync<ContactRequestDto>(httpClient.BaseAddress + $"/{id}", requestDto);
+
+            if(response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Successfully updated field.");
+            }
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("Error: " + e.Message);
+        }
+    }
+
+    private bool IsValidEmail(string email)
+    {
+        string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+        return Regex.IsMatch(email, pattern);
+    }
+
+    public async Task SearchDirectory(string search)
+    {
+    }
 }
 
+
+// To do:
+// !. Allow users to search
